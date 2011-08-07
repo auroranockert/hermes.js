@@ -1,4 +1,4 @@
-class CSFirefoxFile
+class CSArrayFile
 	constructor: (file, errback, callback) ->
 		reader = new FileReader()
 		
@@ -11,7 +11,7 @@ class CSFirefoxFile
 			callback(this)
 		
 		reader.onerror = () =>
-			errback('CSFile could not be built properly')
+			errback('CSArrayFile could not be built properly')
 		
 		reader.readAsArrayBuffer(file)
 		
@@ -40,4 +40,4 @@ class CSFirefoxFile
 		
 		return
 	
-window.CSFirefoxFile = CSFirefoxFile
+window.CSArrayFile = CSArrayFile

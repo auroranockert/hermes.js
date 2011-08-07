@@ -11,7 +11,7 @@ class CSBinaryFile
 			callback(this)
 		
 		reader.onerror = () =>
-			errback('CSFile could not be built properly')
+			errback('CSBinaryFile could not be built properly')
 		
 		reader.readAsBinaryString(file)
 		

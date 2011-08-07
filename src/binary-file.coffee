@@ -1,19 +1,19 @@
-class CSFirefoxFile
+class CSBinaryFile
 	constructor: (file, errback, callback) ->
 		reader = new FileReader()
 		
 		[@position, @endOfFile] = [0, false]
 		
 		reader.onload = () =>
-			@buffer = reader.result
-			@length = @remaining = @buffer.length
+			@string = reader.result
+			@length = @remaining = @string.length
 			
 			callback(this)
 		
 		reader.onerror = () =>
 			errback('CSFile could not be built properly')
 		
-		reader.readAsArrayBuffer(file)
+		reader.readAsBinaryString(file)
 		
 		return
 	
@@ -24,7 +24,7 @@ class CSFirefoxFile
 		if length == @remaining
 			@endOfFile = true
 		
-		result = CSCopy(CSAlloc(length), 0, @buffer, @position, length)
+		result = CSCopyFromString(CSAlloc(length), 0, @string, @position, length)
 		
 		@position += length; @remaining -= length
 		
@@ -36,8 +36,8 @@ class CSFirefoxFile
 		if length > @remaining
 			length = @remaining
 		
-		callback(CSCopy(CSAlloc(length), 0, @buffer, @position, length))
+		callback(CSCopyFromString(CSAlloc(length), 0, @string, @position, length))
 		
 		return
 	
-window.CSFirefoxFile = CSFirefoxFile
+window.CSBinaryFile = CSBinaryFile
